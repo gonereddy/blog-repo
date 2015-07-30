@@ -1,0 +1,140 @@
+      <br><div class="container">
+            <div class="row">
+            <div class="col-md-12 blog-content">
+            <% if @team.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+                <ul>
+                <% @team.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+            <%= form_for(@team) do |f| %>
+            <form class="form-horizontal"><br>
+            <div class="form-group form-group-sm">
+              <div class="row">
+                <div class="col-xs-2" style="text-align:center;">
+                  <%= f.label :name, :class => 'control-label' %>
+                </div>
+                <div class="col-xs-4">
+                  <%= f.text_field :name, :class => 'form-control' %>
+                </div>
+              </div>
+            </div><br>
+            <div class="form-group form-group-sm">
+              <div class="row">
+                <div class="col-xs-2" style="text-align:center;">
+                  <%= f.label :description, :class => 'control-label' %>
+                </div>
+                <div class="col-xs-6">
+                  <%= f.text_area :description, :class => 'form-control', :rows => 4, :cols => 6 %>
+                </div>
+              </div>
+            </div><br>
+            <div class="form-group form-group-sm">
+              <div class="row">
+                <div class="col-xs-2" style="text-align:center;">
+                  <%= f.label :facebook_link, :class => 'control-label' %>
+                </div>
+                <div class="col-xs-4">
+                  <%= f.text_field :facebook_link, :class => 'form-control' %>
+                </div>
+              </div>
+            </div><br>
+            <div class="form-group form-group-sm">
+              <div class="row">
+                <div class="col-xs-2" style="text-align:center;">
+                  <%= f.label :twitter_link, :class => 'control-label' %>
+                </div>
+                <div class="col-xs-4">
+                  <%= f.text_field :twitter_link, :class => 'form-control' %>
+                </div>
+              </div>
+            </div><br>
+            <div class="form-group form-group-sm">
+              <div class="row">
+                <div class="col-xs-2" style="text-align:center;">
+                  <%= f.label :googleplus_link, :class => 'control-label' %>
+                </div>
+                <div class="col-xs-4">
+                  <%= f.text_field :googleplus_link, :class => 'form-control' %>
+                </div>
+              </div>
+            </div><br>
+            <div class="form-group form-group-sm">
+              <div class="row">
+                <div class="col-xs-2" style="text-align:center;">
+                  <%= f.label :linkedin_link, :class => 'control-label' %>
+                </div>
+                <div class="col-xs-4">
+                  <%= f.text_field :linkedin_link, :class => 'form-control' %>
+                </div>
+              </div>
+            </div><br>
+            <div class="form-group form-group-sm">
+              <div class="row">
+                <div class="col-xs-2" style="text-align:center;">
+                  <%= f.label :email, :class => 'control-label' %>
+                </div>
+                <div class="col-xs-4">
+                  <%= f.text_field :email, :class => 'form-control' %>
+                </div>
+              </div>
+            </div><br>
+            <div class="form-group form-group-sm">
+              <div class="row">
+                <div class="col-xs-2" style="text-align:center;">
+                  <%= f.label :photo, :class => 'control-label' %>
+                </div>
+                  <div class="col-xs-4">
+                    <%= f.file_field :photo,:onchange =>"validateFiles(this);",
+                                         :data => {
+                                         :max_file_size => 500.kilobytes
+                                       }, :id => "exampleInputFile" %>
+                  </div>
+              </div>
+            </div><br>
+            <!-- <div class="actions">
+              <%#= f.submit %>
+            </div> -->
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default"><%= f.submit %></button>
+              </div>
+            </div>
+            </form>
+            <% end %>
+            </div>
+            </div>
+        </div>
+
+<script type="text/javascript">
+   function validateFiles(inputFile) {
+     var maxExceededMessage = "This file exceeds the maximum allowed file size (500 KB)";
+     var extErrorMessage = "Only image file with extension: .jpg, .jpeg, .gif or .png is allowed";
+     var allowedExtension = ["jpg", "jpeg", "gif", "png"];
+
+     var extName;
+     var maxFileSize = $(inputFile).data('max-file-size');
+     var sizeExceeded = false;
+     var extError = false;
+
+     $.each(inputFile.files, function() {
+       if (this.size && maxFileSize && this.size > parseInt(maxFileSize)) {sizeExceeded=true;};
+       extName = this.name.split('.').pop();
+       if ($.inArray(extName, allowedExtension) == -1) {extError=true;};
+     });
+     if (sizeExceeded) {
+       window.alert(maxExceededMessage);
+       $(inputFile).val('');
+     };
+
+     if (extError) {
+       window.alert(extErrorMessage);
+       $(inputFile).val('');
+     };
+   }
+ </script>

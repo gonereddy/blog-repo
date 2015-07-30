@@ -1,0 +1,187 @@
+
+<%= form_for(@blog) do |f| %>
+
+
+  <div id="page-wrapper" class="">
+    <section class="breadcrumb-wrapper">
+        <div class="container">
+            <h2>My Blog</h2>
+            <ol class="breadcrumb">
+                <li><a href="<%= root_path %>">Home</a></li>
+                <li class="active">New Blog</li>
+            </ol>
+        </div>
+    </section>
+    <section class="content bg-color-2" id="blog">
+      <div class="container">
+            <div class="row">
+              
+                <!-- BLOG CONTENT - START -->
+                <div class="col-md-12 blog-content">
+                <div class="blog-post">
+                  <% if @blog.errors.any? %>
+                  <div id="error_explanation">
+                  <h2><%= pluralize(@blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+
+                    <ul>
+                    <% @blog.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                    </ul>
+                    </div><br>
+                  <% end %>
+                <form class="form-horizontal">
+                  <br><div class="form-group form-group-sm">
+                  <div class="row">
+                    <div class="col-xs-2" style="text-align:center;">
+                    <%= f.label :name, :class => 'control-label' %>
+                     </div>
+                      <div class="col-xs-4">
+                      <%= f.text_field :name, :class => 'form-control' %>
+                    </div>
+                    </div>
+                  </div><br>
+                  <div class="form-group form-group-sm">
+                  <div class="row">
+                    <div class="col-xs-2" style="text-align:center;">
+                    <%= f.label :details, :class => 'control-label' %>
+                     </div>
+                      <div class="col-xs-8">
+                     <%= f.text_area :details, :class => "tinymce", :rows => 4, :cols => 10 %>
+                     <%= tinymce %>
+                    </div>
+                    </div>
+                  </div><br>
+                  <div class="form-group form-group-sm">
+                  <div class="row">
+                    <div class="col-xs-2" style="text-align:center;">
+                    <%= f.label :category, :class => 'control-label' %>
+                     </div>
+                      <div class="col-xs-4">
+                      <%= f.text_field :category, :class => 'form-control' %>
+                    </div>
+                    </div>
+                  </div><br>
+                  <div class="form-group form-group-sm">
+                  <div class="row">
+                    <div class="col-xs-2" style="text-align:center;">
+                    <%= f.label :tags, :class => 'control-label' %>
+                     </div>
+                      <div class="col-xs-4">
+                      <%= f.text_field :tags, :class => 'form-control' %>
+                    </div>
+                    </div>
+                  </div><br>
+                  <div class="form-group form-group-sm">
+                  <div class="row">
+                    <div class="col-xs-2" style="text-align:center;">
+                    <%= f.label :post_date, :class => 'control-label' %>
+                     </div>
+                      <div class="col-xs-4">
+                      <%= f.datetime_select :post_date, :class => 'form-control' %>
+                    </div>
+                    </div>
+                  </div><br>
+                  <!-- <div class="form-group form-group-sm">
+                  <div class="row">
+                    <div class="col-xs-2" style="text-align:center;">
+                    <%#= f.label :blog_video, :class => 'control-label' %>
+                     </div>
+                      <div class="col-xs-4">
+                      <%#= f.text_field :blog_video, :class => 'form-control' %>
+                    </div>
+                    </div>
+                  </div><br> -->
+                  <div class="form-group form-group-sm">
+                  <div class="row">
+                    <div class="col-xs-2" style="text-align:center;">
+                    <%= f.label "Blog photo", :class => 'control-label' %>
+                     </div>
+                      <div class="col-xs-4">
+                      <%= f.file_field :avatar,:onchange =>"validateFiles(this);",
+                                         :data => {
+                                         :max_file_size => 500.kilobytes
+                                       }, :id => "exampleInputFile" %>
+                    </div>
+                    </div>
+                  </div><br>
+                  <div class="form-group form-group-sm">
+                  <div class="row">
+                    <div class="col-xs-2" style="text-align:center;">
+                    <%= f.label "Author ID", :class => 'control-label' %>
+                     </div>
+                      <div class="col-xs-4">
+                      <%#= f.text_field :author, :class => 'form-control' %>
+                      <%#= f.select :team_id, options_for_select((Team.
+                        all.map {|r| [r.name,r.id] }), @blog.team_id ),:prompt => "Select Author" %>
+                          <% if user_signed_in? %>
+                         <%= f.text_field :author, :class => 'form-control', :value => current_user.email %>
+                         <% else %>
+                         <%= f.text_field :author, :class => 'form-control' %>
+                         <% end %>
+                    </div>
+                    </div>
+                  </div><br>
+                  <!-- <div class="form-group form-group-sm">
+                  <div class="row">
+                    <div class="col-xs-2" style="text-align:center;">
+                    <%#= f.label "Linkedin Link", :class => 'control-label' %>
+                     </div>
+                      <div class="col-xs-4">
+                      <%#= f.text_field :link, :class => 'form-control' %>
+                    </div>
+                    </div>
+                    </div><br> --> 
+                    <div class="form-group form-group-sm">         
+                  <div class="row">
+                    <div class="col-xs-2" style="text-align:center;">
+                    <%= f.label "SEO name", :class => 'control-label' %>
+                     </div>
+                      <div class="col-xs-4">
+                      <%= f.text_field :slug , :class => 'form-control' %>
+                    </div>
+                    </div>
+                  </div><br>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-default"><%= f.submit  %></button>
+                    </div>
+                  </div>
+                </form>                  
+                <% end %>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          </section>
+        </div>
+
+
+<script type="text/javascript">
+   function validateFiles(inputFile) {
+     var maxExceededMessage = "This file exceeds the maximum allowed file size (500 KB)";
+     var extErrorMessage = "Only image file with extension: .jpg, .jpeg, .gif or .png is allowed";
+     var allowedExtension = ["jpg", "jpeg", "gif", "png"];
+
+     var extName;
+     var maxFileSize = $(inputFile).data('max-file-size');
+     var sizeExceeded = false;
+     var extError = false;
+
+     $.each(inputFile.files, function() {
+       if (this.size && maxFileSize && this.size > parseInt(maxFileSize)) {sizeExceeded=true;};
+       extName = this.name.split('.').pop();
+       if ($.inArray(extName, allowedExtension) == -1) {extError=true;};
+     });
+     if (sizeExceeded) {
+       window.alert(maxExceededMessage);
+       $(inputFile).val('');
+     };
+
+     if (extError) {
+       window.alert(extErrorMessage);
+       $(inputFile).val('');
+     };
+   }
+ </script>

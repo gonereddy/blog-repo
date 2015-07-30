@@ -1,0 +1,238 @@
+<script>
+window.disqus_no_style = true;
+$.getScript("http://disqus.com/forums/rapexegesis/embed.js")
+</script>
+
+<%= javascript_include_tag "jquery-1.6.2.min", "jquery.tokeninput" %>
+  <%= stylesheet_link_tag    "token-input", "token-input-facebook" %>
+   <script type="text/javascript">
+     $(document).ready(function() {
+       $("#category").tokenInput('blogs/search_sphinx?q=', {
+         theme: "facebook",
+        hintText: "Search blog by Name",
+         noResultsText: "No results found",
+         searchingText: "Searching...",
+         tokenLimit: 1
+       });
+     })
+   </script>
+  <script type="text/javascript">
+  jQuery(document).ready(function($){
+  $(".blog-post-body p").each(function(){
+    if ($(this).text().length > 500) {
+      $(this).text($(this).text().substr(0, 495));
+      $(this).append('...');
+    }
+  });
+});
+  </script> 
+
+
+  <!-- ==========================
+      FACEBOOK - SHARE BUTTON 
+    =========================== -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    
+    
+    <div id="page-wrapper" class="">
+    <!-- ==========================
+      HEADER - END 
+    =========================== -->
+    
+    <!-- ==========================
+      BREADCRUMB - START 
+    =========================== -->
+    <section class="breadcrumb-wrapper">
+        <div class="container">
+            <h2>My Blogs</h2>
+            <ol class="breadcrumb">
+                <li><a href="<%= root_path %>">Home</a></li>
+                
+            </ol>
+        </div>
+    </section>
+  <!-- ==========================
+      BREADCRUMB - END 
+    =========================== -->
+
+    <!-- ==========================
+      BLOG - START 
+    =========================== -->
+    <%= flash[:notice] %>
+     <section class="content bg-color-2 right-sidebar" id="blog">
+      <div class="container">
+            <div class="row">
+              
+                <!-- BLOG CONTENT - START -->
+                <div class="col-md-8 col-lg-9 blog-content">
+                  
+                    <!-- BLOG POST -->
+                    <div class="blog-post">
+                      <!-- <div class="flex-video widescreen">
+                          <iframe src="https://player.vimeo.com/video/23617801"></iframe>
+                      </div> -->
+                      <%= image_tag @blog.avatar,:class => "img-responsive" ,:alt => ""%>
+                        <div class="blog-post-detail">
+                            <span><i class="fa fa-calendar"></i><%= @blog.post_date.strftime("%d-%m-%Y") %></span>
+                   <!--          <span><i class="fa fa-comment"></i>11</span>
+                            <span><i class="fa fa-thumbs-up"></i>23</span> -->
+                            <span class="text-light hidden-xs">
+                            <% @cat = @blog.category.split(',') %>
+                            <% @cat.each do |c| %>
+                            <a href="#"><%= c %>&nbsp</a>
+                            <% end %>
+                            </span>
+                            <span class="text-light hidden-xs">
+                            <% @tag = @blog.tags.split(',') %>
+                            <% @tag.each do |t| %>
+                             <a href="#"><%= t %>&nbsp</a>
+                            <% end %>
+                            </span>
+                        </div>
+                        <div class="blog-post-body">
+                        <h3><%= @blog.name %></h3>
+                          <p><%= raw @blog.details %></p>
+                          <p>Posted By: <%= @blog.author %>   
+
+                        </div>
+
+                    <% unless @blog.team.nil? %>
+                    <div class="about-author" >
+                        <div class="media">
+                          <div class="pull-left">
+                            <%= image_tag @blog.team.photo,:class => "img-responsive" ,:alt => "", :style=>"width:200px; height:200px" %><br>
+                                <ul class="brands brands-sm brands-circle brands-inline text-center main">
+                                  <li><a href="http://<%= @blog.team.facebook_link %>"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="http://<%= @blog.team.twitter_link %>"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="http://<%= @blog.team.googleplus_link %>"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="media-body">
+                              <h4 class="media-heading"><%= @blog.team.name %></h4>
+                              <p><%= @blog.team.description %></p>
+                              <ul class="list-unstyled list-inline" >
+                                  <li style="font-size:12px;"><i class="fa fa-envelope"></i>&nbsp<%= @blog.team.email %></li>
+                                    <li style="font-size:12px;"><a href="http://<%= @blog.team.linkedin_link %>"><i class="fa fa-linkedin-square"></i><%= @blog.team.linkedin_link %></a></li>
+                                </ul>
+                            </div>
+                        </div><br>
+                    </div>
+                    <% end %>
+
+
+
+                    <% if user_signed_in? and current_user.email == @blog.author %>
+                    <br>
+                    <div class="input-group">
+                    <%= link_to 'Edit', edit_blog_path(@blog), class: 'btn btn-primary' %> 
+                    <%= link_to 'Back', blogs_path , class: 'btn btn-primary'%>
+                    </div>                    
+                    <% end %>
+                    
+
+
+                <!-- BLOG CONTENT - END -->
+              </div>
+              </div>
+                
+                <!-- BLOG SIDEBAR - START -->
+              <div class="col-md-4 col-lg-3 blog-sidebar">
+              <div class="box">
+                      <h3>Search</h3>
+                        <form>
+                            <fieldset>
+                                <div class="form-group nospace">
+                                    <div class="input-group">
+                                    <%= form_tag search_blogs_path, :method => :get do %>
+                                    <%#= text_field_tag :name %>
+                                    <%#= submit_tag value='search'%>
+                                       <input type="text" class="form-control" id="search" placeholder="Search" required>
+                                        <span class="input-group-btn"><button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button></span>
+                                        <% end %>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                </div>
+                <%= render partial: "category_and_tags" %>
+            </div>
+      </div><br>
+      <%- disqus_thread %>
+       </div>
+</section>
+</div>
+<style>
+body.color-light-blue a{
+  color:#15191A;
+}
+</style>
+    <!-- ==========================
+      BLOG - END 
+    =========================== --> 
+        
+    <!-- ==========================
+      FOOTER - START 
+    =========================== -->
+    <!-- ==========================
+      FOOTER - END 
+    =========================== -->
+   
+   
+   
+    <!-- ==========================
+      JS 
+    =========================== -->        
+  
+
+<!-- <p id="notice"><%#= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%#= @blog.name %>
+</p>
+
+<p>
+  <strong>Details:</strong>
+  <%#= raw @blog.details %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%#= @blog.category %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <%#= @blog.tags %>
+</p>
+
+<p>
+  <strong>Post date:</strong>
+  <%#= @blog.post_date %>
+</p>
+
+<p>
+  <strong>Blog video:</strong>
+  <%#= @blog.blog_video %>
+</p>
+
+<p>
+  <strong>Avatar:</strong>
+  <%#= image_tag @blog.avatar %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%#= @blog.user_id %>
+</p>
+<%#- disqus_thread %> -->
+<%#= link_to 'Edit', edit_blog_path(@blog) %>
+<%#= link_to 'Back', blogs_path %>

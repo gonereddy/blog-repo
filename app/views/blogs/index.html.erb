@@ -1,0 +1,92 @@
+<%= javascript_include_tag "jquery-1.6.2.min", "jquery.tokeninput" %>
+  <%= stylesheet_link_tag    "token-input", "token-input-facebook" %>
+   <script type="text/javascript">
+     $(document).ready(function() {
+       $("#category").tokenInput('blogs/search_sphinx?q=', {
+         theme: "facebook",
+        hintText: "Search blog by Name",
+         noResultsText: "No results found",
+         searchingText: "Searching...",
+         tokenLimit: 1
+       });
+     })
+   </script>
+  <script type="text/javascript">
+  jQuery(document).ready(function($){
+  $(".blog-post-body p").each(function(){
+    if ($(this).text().length > 500) {
+      $(this).text($(this).text().substr(0, 495));
+      $(this).append('...');
+    }
+  });
+});
+  </script>
+    <div id="page-wrapper" class="">
+    
+    <section class="breadcrumb-wrapper" >
+        <div class="container">
+            <h2>Anil Blogs</h2>
+            <ol class="breadcrumb">
+                <li><a href="<%= root_path %>">Home</a></li>
+                <li class="active">My Blogs</li>
+              <li><%= link_to 'New', new_blog_path(@blog), class: 'btn btn-primary' %> </li>
+                
+            </ol>
+        </div>
+    </section>
+    <%= flash[:notice] %>
+<section class="content bg-color-2 right-sidebar" id="blog">
+<!-- <div class="col-md-3 col-md-offset-4 pull-right">
+        <%#= form_tag search_blogs_path, :method => :get do %>
+            <%#= text_field_tag :name %>
+            <%#= submit_tag value='search'%>
+        <%# end %>
+    </div> -->
+      <div class="container">
+            <div class="row">
+              
+                <!-- BLOG CONTENT - START -->
+                <div class="col-md-8 col-lg-9 blog-content">
+                <% @blogs.each do |blog| %>
+                <div class="blog-post">
+                       <%= image_tag blog.avatar,:class => "img-responsive" ,:alt => ""%>
+                        <div class="blog-post-detail">
+                            <span><i class="fa fa-calendar"></i><%= blog.post_date.strftime("%d-%m-%Y") %></span>
+                            <span class="text-light hidden-xs"><a href="#"><%= blog.category %></a>, <a href="#"><%= blog.tags %></a></span>
+                        </div>
+                        <div class="blog-post-body">
+                        <a href=""><h3><%= link_to blog.name, blog %></h3></a>
+                          <p><%= truncate(blog.details,:length => 500 ,escape: false).html_safe %></p>
+                        <a href="<%= blog_path(blog) %>" class="btn btn-primary"><i class="fa fa-chevron-right"></i>Read More</a>
+                        </div>
+                </div>
+                <% end %> 
+                    <ul class="pagination">
+                        <li ><%= will_paginate @blogs, :container => false %></li>
+                    </ul><br>
+                    <br>
+                </div>
+                <br>
+              <div class="col-md-4 col-lg-3 blog-sidebar">
+              <div class="box">
+                      <h3>Search</h3>
+                            <fieldset>
+                              <div class="form-group nospace" >
+                                <div class="input-group" style="width:100%;">
+                                    <%= form_tag search_blogs_path, :method => :get do %>
+                                      <%= text_field_tag('category', nil, class: 'input-group') %>
+                                      <%#= submit_tag value="Search", class: 'btn btn-primary' %>
+                                      <%= button_tag(type: "submit", class: "btn btn-primary") do %><i class="fa fa-search"></i>
+                                      <% end %>
+                                    <% end %>
+                                </div>
+                                </div>
+                            </fieldset>
+                </div>
+                <%= render partial: "category_and_tags" %>
+            </div>
+      </div>
+      </div>
+</section>
+</div>
+ 

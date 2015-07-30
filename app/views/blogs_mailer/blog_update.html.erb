@@ -1,0 +1,7 @@
+
+<h1><%= @blog.name %></h1>
+<h2><%= raw @blog.details %></h2>
+<h2> <%#=truncate(@blog.details,:length => 500 ,escape: false).html_safe %> </h2>
+<br/>
+<p>Unsubscribe <%= link_to "here", :controller => "news_letters", :action => "unsubscribe",
+:only_path => false, :id => @nid, :host => "localhost:3000" %> from this Newsletter</p>

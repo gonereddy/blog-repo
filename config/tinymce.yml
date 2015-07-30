@@ -1,0 +1,17 @@
+default:
+  plugins:
+    - image
+    - link
+    - hr
+    - colorpicker
+    - fullpage
+    - preview
+    - textcolor
+    - autosave
+    - template
+
+alternate:
+  selector: textarea.table-editor
+  toolbar: styleselect | bold italic | undo redo | table
+  plugins:
+    - table

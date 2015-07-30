@@ -1,0 +1,14 @@
+<div class="box">
+  <h3>Categories</h3>
+  <ul class="list-unstyled">
+    <% @category.uniq.each do |c| %>
+    <li><a href="<%= display_category_blogs_path(:category => c) %>"><i class="fa fa-angle-double-right"></i><%= c %><span class="badge"><%= blog_count(c) %></span></a></li>
+    <% end %>
+  </ul>
+</div>
+<div class="box box-tags">
+  <h3>Tags</h3>
+  <% @tag.uniq.each do |t| %>
+  <a href="<%= display_tags_blogs_path(:tags => t) %>"><span class="text-14"><%= t %>&nbsp</span></a>
+  <% end %> 
+</div>

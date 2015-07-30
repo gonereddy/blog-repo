@@ -1,0 +1,30 @@
+      <br><div class="container">
+            <div class="row">
+            <div class="col-md-12 blog-content">
+            <%= form_for(@news_letter) do |f| %>
+              <% if @news_letter.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@news_letter.errors.count, "error") %> prohibited this news_letter from being saved:</h2>
+
+                  <ul>
+                  <% @news_letter.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                  </ul>
+                </div>
+              <% end %>
+              <div class="form-group form-group-sm">
+              <div class="row">
+                <div class="col-xs-2" style="text-align:center;">
+                  <%= f.label :email, :class => 'control-label' %>
+                </div>
+                <div class="col-xs-4">
+                  <%= f.text_field :email, :class => 'form-control' %>
+                </div>
+              </div>
+            </div><br>
+                <%= f.submit %>
+            <% end %>
+            </div>
+            </div>
+      </div>

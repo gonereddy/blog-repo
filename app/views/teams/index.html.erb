@@ -1,0 +1,47 @@
+<%- model_class = Team -%>
+<div class="container" ><br>
+    <div class="row">
+     <div class="col-md-12">
+        <div class="panel panel-primary filterable">
+          <div class="panel-heading">
+            <h3 class="panel-title">Team</h3>
+          </div>
+          <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+              <th><%= model_class.human_attribute_name(:name) %></th>
+              <th><%= model_class.human_attribute_name(:email) %></th>
+              <th><%=t '.actions', :default => t("helpers.actions") %></th>
+              </tr>
+            </thead>
+        <tbody>
+          <% @teams.each do |team| %>
+        <tr>
+        <td><%= link_to team.name, team_path(team) %></td>
+        <td><%= team.email %></td>
+        <td>
+          <button type="button" class="btn btn-xs btn-default">
+           <%= link_to edit_team_path(team) do %>
+           <i class="fa fa-pencil fa-fw"></i>
+           <% end %>
+          </button>
+          <button type="button" class="btn btn-xs btn-danger">
+           <%= link_to  team_path(team), method: :delete, data: { confirm: 'Are you sure?' } do %>
+           <i class="fa fa-trash-o fa-lg"></i>
+           <% end %>
+          </button>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_team_path,
+            :class => 'btn btn-primary' %>
+</div><br>
+

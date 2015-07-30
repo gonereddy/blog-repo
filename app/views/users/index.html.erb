@@ -1,0 +1,47 @@
+ <div class="container" ><br>
+    <div class="row">
+     <div class="col-md-12">
+        <div class="panel panel-primary filterable">
+          <div class="panel-heading">
+            <h3 class="panel-title">Users list</h3>
+          </div>
+          <div class="table-responsive">
+          <table class="table" style="margin-bottom:50px;">
+            <thead>
+              <tr>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Role</th>
+              </tr>
+            </thead>
+        <tbody>
+        <% if @users.empty? %>
+          <tr>
+            <td>NO User Record Found </td>
+          </tr>
+        <%else%>
+          <% @users.each do |user| %>
+        <tr>
+        <td><%= user.email %></td>
+        <% if user.status? %>
+            <td>Approved</td>
+        <%else %>
+            <td>Not Approved</td>
+        <% end %>
+        <% if user.super_admin? %>
+          <td>Super Admin</td>
+        <% elsif user.admin? %>
+          <td>Admin</td>
+        <% else %>
+          <td>User</td>
+        <% end %>
+      </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>

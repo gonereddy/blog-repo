@@ -1,0 +1,3 @@
+<h1> Welcome <%= @newsletter.email %> , You have Successfully Subscribed </h1>
+<h5>Unsubscribe <%= link_to "here", :controller => "news_letters", :action => "unsubscribe",
+:only_path => false, :id => @newsletter.id, :host => "localhost:3000" %> from this newsletter  </h5>

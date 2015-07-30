@@ -1,0 +1,42 @@
+<div class="container" ><br>
+    <div class="row">
+     <div class="col-md-12">
+        <div class="panel panel-primary filterable">
+          <div class="panel-heading">
+            <h3 class="panel-title">Emails list</h3>
+          </div>
+          <div class="table-responsive">
+          <table class="table" style="margin-bottom:50px;">
+            <thead>
+              <tr>
+              <th>Email</th>
+              <th>Actions</th>
+              </tr>
+            </thead>
+        <tbody>
+        <% if @news_letters.empty? %>
+          <tr>
+            <td>NO emails Found </td>
+          </tr>
+        <%else%>
+          <% @news_letters.each do |news_letter| %>
+        <tr>
+        <td><%= news_letter.email %></td>
+        <td style="width:50px;"><%= link_to 'Show', news_letter %></td>
+        <td style="width:50px;"><%= link_to 'Edit', edit_news_letter_path(news_letter) %></td>
+        <td style="width:50px;"><%= link_to 'Destroy', news_letter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<%= link_to t('.new', :default => t("helpers.links.add_email")),
+            new_news_letter_path,
+            :class => 'btn btn-primary' %>
+</div>
+<br>

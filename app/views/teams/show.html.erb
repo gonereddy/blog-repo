@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+<br><div class="container" >
+            <div class="row">
+            	<div class="about-author">
+                        <div class="media">
+                          <div class="pull-left">
+                            <%= image_tag @team.photo,:class => "img-responsive" ,:alt => "", :style=>"width:200px; height:200px" %><br>
+                                <ul class="brands brands-sm brands-circle brands-inline text-center main">
+                                  <li><a href="http://<%= @team.facebook_link %>"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="http://<%= @team.twitter_link %>"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="http://<%= @team.googleplus_link %>"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="media-body">
+                              <h4 class="media-heading"><%= @team.name %></h4>
+                              <p><%= @team.description %></p>
+                              <ul class="list-unstyled list-inline">
+                                  <li><i class="fa fa-envelope"></i>&nbsp<%= @team.email %></li>
+                                   <li><a href="http://<%= @team.linkedin_link %>"><i class="fa fa-linkedin-square"></i><%= @team.linkedin_link %></a></li>
+                                </ul>
+                            </div>
+                        </div><br>
+                    </div>
+            </div>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+            edit_team_path(@team),
+            :class => 'btn btn-primary' %>
+    <%= link_to t('.back', :default => t("helpers.links.back")),
+            teams_path,
+            :class => 'btn btn-primary' %>
+</div><br>
