@@ -3,25 +3,13 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-Things you may want to cover:
+Hi Ryan,
 
-* Ruby version
+  Please look in to the coding and there was not sufficient time for me to write testing, i know it is mandatory but if i would get little time i will make it and am sorry about that.
 
-* System dependencies
+* I used disqus api in this blog.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* team controller is for the kind of groups they can discuss.
 
 
 Please feel free to use a different markup language if you do not plan to run
